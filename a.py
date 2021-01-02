@@ -1,11 +1,16 @@
+import xlwt #写入文件
 
-from pptx import Presentation
-from datetime import datetime
+fopen=open("E:/测试/txt.txt",'r')
+lines=fopen.readlines()
+#新建一个excel文件
+file=xlwt.Workbook(encoding='utf-8',style_compression=0)
+#新建一个sheet
+sheet=file.add_sheet('data')
 
-prs = Presentation("E:\测试\示例文件2.pptx")
-slide = prs.slides.add_slide(prs.slide_layouts[0])  # 用第一个母版生成一页ppt
-for shape in slide.placeholders:         # 获取这一页所有的占位符
-    phf = shape.placeholder_format
-    print(f'{phf.idx}--{shape.name}--{phf.type}')
-    shape.text = f'{phf.idx}--{phf.type}'  #在占位符中填写“占位符id号--占位符类型”
-prs.save('E:\测试\示例文件2.pptx')
+#写入写入a.txt，a.txt文件有20000行文件
+i=0
+for line in lines:
+    sheet.write(i,0,line)
+    i=i+1
+
+file.save('minni.xls')
